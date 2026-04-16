@@ -4,6 +4,10 @@ const nextComposePlugins = require('next-compose-plugins');
 const headers = require('./config/headers');
 const plugins = require('./config/plugins');
 
+if (process.env.ENVIRONMENT_NAME === 'local') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
+
 /**
  * https://github.com/cyrilwanner/next-compose-plugins/issues/59
  */
