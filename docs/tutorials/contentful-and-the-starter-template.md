@@ -96,7 +96,7 @@ Now, we are going to edit the `📄 page - Landing` content type to understand i
 
 > **Pre-requisites:**
 >
-> To follow the next steps, make sure you have completed the [Starter Template setup](../../README.md/#getting-started) and that the Starter Template application is running locally, at [http://localhost:3000](http://localhost:3000).
+> To follow the next steps, make sure you have completed the [Starter Template setup](../../README.md/#getting-started) and that the Starter Template application is running locally, at [http://localhost:3001](http://localhost:3001).
 
 $~$
 
@@ -135,7 +135,7 @@ Now, let's connect the new `Greeting` field to our Starter Template source code:
   - Follow the comment in the file, line #6, save the changes.
 - Open the `index.page.tsx` file.
   - Follow the comments in the file starting line #25, save the changes.
-- Navigate to the running Starter Template application, [http://localhost:3000/](http://localhost:3000/)
+- Navigate to the running Starter Template application, [http://localhost:3001/](http://localhost:3001/)
   - If the application is not running yet, in your terminal of choice, run `yarn dev`.
 - You should see the `Greeting` field on the homepage.
 

@@ -1,6 +1,5 @@
 import { dir } from 'i18next';
 import type { Metadata, Viewport } from 'next';
-import { Urbanist } from 'next/font/google';
 import { draftMode } from 'next/headers';
 
 import { ContentfulPreviewProvider } from '@src/components/features/contentful';
@@ -9,10 +8,11 @@ import { Footer } from '@src/components/templates/footer';
 import { Header } from '@src/components/templates/header';
 import initTranslations from '@src/i18n';
 import { locales } from '@src/i18n/config';
+import { getBaseUrl } from '@src/lib/build';
 
 export function generateMetadata(): Metadata {
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+    metadataBase: getBaseUrl(),
     twitter: {
       card: 'summary_large_image',
     },
@@ -26,8 +26,6 @@ export const viewport: Viewport = {
 export async function generateStaticParams(): Promise<LayoutProps['params'][]> {
   return locales.map(locale => ({ locale }));
 }
-
-const urbanist = Urbanist({ subsets: ['latin'], variable: '--font-urbanist' });
 
 const allowedOriginList = ['https://app.contentful.com', 'https://app.eu.contentful.com'];
 
@@ -55,12 +53,12 @@ export default async function PageLayout({ children, params }: LayoutProps) {
             enableLiveUpdates={preview}
             targetOrigin={allowedOriginList}
           >
-            <main className={`${urbanist.variable} font-sans`}>
+            <main className="font-sans">
               <Header />
               {children}
               <Footer />
             </main>
-            <div id="portal" className={`${urbanist.variable} font-sans`} />
+            <div id="portal" className="font-sans" />
           </ContentfulPreviewProvider>
         </TranslationsProvider>
       </body>
