@@ -22,7 +22,6 @@ export const CtfImage = ({ url, width, height, title, nextImageProps }: ImagePro
       sizes="(max-width: 1200px) 100vw, 50vw"
       placeholder="blur"
       blurDataURL={blurURL.toString()}
-      unoptimized
       {...nextImageProps}
       className={twMerge(nextImageProps?.className, 'transition-all')}
     />
