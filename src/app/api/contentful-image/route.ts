@@ -1,7 +1,6 @@
 import { NextRequest } from 'next/server';
 
 const ALLOWED_HOSTS = new Set(['images.ctfassets.net', 'images.eu.ctfassets.net']);
-const DEFAULT_CACHE_CONTROL = 'public, max-age=31536000, immutable';
 
 const buildUpstreamUrl = (requestUrl: string, width?: string, quality?: string): URL | null => {
   let upstreamUrl: URL;
@@ -57,28 +56,11 @@ export async function GET(request: NextRequest): Promise<Response> {
 
   const responseHeaders = new Headers();
   const contentType = upstreamResponse.headers.get('content-type');
-  const cacheControl = upstreamResponse.headers.get('cache-control');
-  const contentLength = upstreamResponse.headers.get('content-length');
-  const etag = upstreamResponse.headers.get('etag');
-  const lastModified = upstreamResponse.headers.get('last-modified');
 
   if (contentType) {
     responseHeaders.set('Content-Type', contentType);
   }
 
-  if (contentLength) {
-    responseHeaders.set('Content-Length', contentLength);
-  }
-
-  if (etag) {
-    responseHeaders.set('ETag', etag);
-  }
-
-  if (lastModified) {
-    responseHeaders.set('Last-Modified', lastModified);
-  }
-
-  responseHeaders.set('Cache-Control', cacheControl ?? DEFAULT_CACHE_CONTROL);
   responseHeaders.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   responseHeaders.set('X-Content-Type-Options', 'nosniff');
   responseHeaders.set('X-Frame-Options', 'SAMEORIGIN');
