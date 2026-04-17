@@ -7,27 +7,11 @@ interface ImageProps extends Omit<ImageFieldsFragment, '__typename'> {
   nextImageProps?: Omit<NextImageProps, 'src' | 'alt'>;
 }
 
-const contentfulImageLoader: NextImageProps['loader'] = ({ src, width, quality }) => {
-  const params = new URLSearchParams({
-    url: src,
-    w: width.toString(),
-  });
-
-  if (quality) {
-    params.set('q', quality.toString());
-  }
-
-  return `/api/contentful-image?${params.toString()}`;
-};
+const BLUR_DATA_URL =
+  'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
 
 export const CtfImage = ({ url, width, height, title, nextImageProps }: ImageProps) => {
   if (!url || !width || !height) return null;
-
-  const blurParams = new URLSearchParams({
-    url,
-    w: '10',
-    q: '20',
-  });
 
   return (
     <NextImage
@@ -35,10 +19,9 @@ export const CtfImage = ({ url, width, height, title, nextImageProps }: ImagePro
       width={width}
       height={height}
       alt={title || ''}
-      loader={contentfulImageLoader}
       sizes="(max-width: 1200px) 100vw, 50vw"
       placeholder="blur"
-      blurDataURL={`/api/contentful-image?${blurParams.toString()}`}
+      blurDataURL={BLUR_DATA_URL}
       {...nextImageProps}
       className={twMerge(nextImageProps?.className, 'transition-all')}
     />
