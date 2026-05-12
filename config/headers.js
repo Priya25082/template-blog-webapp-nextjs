@@ -32,6 +32,11 @@ const securityHeaders = [
 module.exports = async () => {
   return [
     {
+      // Next.js image optimizer route (some platforms treat `/_next/*` as special)
+      source: '/_next/image',
+      headers: securityHeaders,
+    },
+    {
       // Apply these headers to all routes in your application.
       source: '/:path*',
       headers: securityHeaders,
