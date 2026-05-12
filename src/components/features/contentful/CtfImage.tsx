@@ -10,6 +10,26 @@ interface ImageProps extends Omit<ImageFieldsFragment, '__typename'> {
 const BLUR_DATA_URL =
   'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
 
+const normalizeImageUrl = (inputUrl: string): string => {
+  const trimmed = inputUrl.trim();
+
+  if (trimmed.startsWith('//')) {
+    return `https:${trimmed}`;
+  }
+
+  if (trimmed.includes('/_next/image')) {
+    try {
+      const parsed = new URL(trimmed, 'http://localhost');
+      const inner = parsed.searchParams.get('url');
+      if (inner) return inner;
+    } catch {
+      // ignore and fall back to original
+    }
+  }
+
+  return trimmed;
+};
+
 const contentfulImageLoader: NextImageProps['loader'] = ({ src, width, quality }) => {
   const params = new URLSearchParams({
     url: src,
@@ -26,9 +46,11 @@ const contentfulImageLoader: NextImageProps['loader'] = ({ src, width, quality }
 export const CtfImage = ({ url, width, height, title, nextImageProps }: ImageProps) => {
   if (!url || !width || !height) return null;
 
+  const normalizedUrl = normalizeImageUrl(url);
+
   return (
     <NextImage
-      src={url}
+      src={normalizedUrl}
       width={width}
       height={height}
       alt={title || ''}
