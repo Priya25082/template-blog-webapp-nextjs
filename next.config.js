@@ -58,6 +58,9 @@ module.exports = withPlugins(plugins, {
    * Settings are the defaults
    */
   images: {
+    // Vercel's image optimizer (`/_next/image`) can override/omit custom security headers.
+    // If you need scanners to see your app's headers on image responses, disable optimization.
+    unoptimized: process.env.NEXT_IMAGE_UNOPTIMIZED === 'true',
     remotePatterns: [
       {
         protocol: 'https',
