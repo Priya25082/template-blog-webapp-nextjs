@@ -34,6 +34,9 @@ export const CtfImage = ({ url, width, height, title, nextImageProps }: ImagePro
   if (!url || !width || !height) return null;
 
   const normalizedUrl = unwrapOptimizedImageUrl(url);
+  const unoptimized =
+    process.env.NEXT_IMAGE_UNOPTIMIZED === 'true' ||
+    nextImageProps?.unoptimized === true;
 
   return (
     <NextImage
@@ -44,6 +47,7 @@ export const CtfImage = ({ url, width, height, title, nextImageProps }: ImagePro
       sizes="(max-width: 1200px) 100vw, 50vw"
       placeholder="blur"
       blurDataURL={BLUR_DATA_URL}
+      unoptimized={unoptimized}
       {...nextImageProps}
       className={twMerge(nextImageProps?.className, 'transition-all')}
     />
