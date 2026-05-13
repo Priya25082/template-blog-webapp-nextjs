@@ -24,6 +24,7 @@ module.exports = withPlugins(plugins, {
    */
   env: {
     ENVIRONMENT_NAME: process.env.ENVIRONMENT_NAME,
+    NEXT_IMAGE_UNOPTIMIZED: process.env.NEXT_IMAGE_UNOPTIMIZED,
   },
 
   /**
