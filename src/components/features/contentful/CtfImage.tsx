@@ -34,7 +34,6 @@ export const CtfImage = ({ url, width, height, title, nextImageProps }: ImagePro
   if (!url || !width || !height) return null;
 
   const normalizedUrl = unwrapOptimizedImageUrl(url);
-
   const proxyLoader: NextImageProps['loader'] = ({ src, width, quality }) => {
     const q = quality ?? 75;
     return `/contentful-image?url=${encodeURIComponent(src)}&w=${width}&q=${q}`;
